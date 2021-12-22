@@ -1,5 +1,6 @@
 #include <string>
-
+#include <sstream>
+#include <iomanip>
 #include "format.h"
 
 using std::string;
@@ -12,6 +13,13 @@ string Format::ElapsedTime(long seconds)
   int MM = (seconds % 3600 ) / 60;
   int SS = seconds % 60 ;
 
-  string formatted_time = std::to_string(HH) + ":" + std::to_string(MM) + ":" + std::to_string(SS);
+  string formatted_time = PadZero(HH) + ":" + PadZero(MM) + ":" + PadZero(SS);
   return  formatted_time;
+}
+
+string Format::PadZero(int unit)
+{
+    std::ostringstream ss;
+    ss << std::setw( 2 ) << std::setfill( '0' ) << unit;
+    return ss.str();
 }

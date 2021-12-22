@@ -52,7 +52,7 @@ void Process::Update(LinuxParser &parser)
 
   this->ram_ = std::to_string(parser.GetProcessRam() /  1024);
   this->username_ = parser.GetProcessUsername();
-  this->uptime_ = parser.GetProcessUptime();
+  this->uptime_ = parser.UpTime() - parser.GetProcessUptime();
   this->cmd_ = parser.GetProcessCommandLine();
   this->ComputeCpuUtilization(parser);
 
