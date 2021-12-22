@@ -96,8 +96,6 @@ void NCursesDisplay::Display(System& system, int n) {
   cbreak();       // terminate ncurses on ctrl + c
   start_color();  // enable color
 
-//  signal(SIGWINCH, sig_handler);
-
   x_max = getmaxx(stdscr);
   system_window = newwin(9, x_max - 1, 0, 0);
   process_window =
@@ -119,19 +117,3 @@ void NCursesDisplay::Display(System& system, int n) {
   }
   endwin();
 }
-
-
-void NCursesDisplay::sig_handler(int sig)
-{
-  if (SIGWINCH == sig) {
-    struct winsize winsz;
-
-    ioctl(0, TIOCGWINSZ, &winsz);
-//    printf("SIGWINCH raised, window size: %d rows / %d columns\n",
-//           winsz.ws_row, winsz.ws_col);
-
-    system_window->_maxx = winsz.ws_col;
-    wrefresh(system_window);
-  }
-
-} // sig_handler
